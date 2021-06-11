@@ -1,0 +1,19 @@
+{
+    "name": "justamand/morning",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Justamandd",
+            "email": "justamandd@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "App"
+        },
+        "files": [
+            "config.php"
+        ]
+    }
+}
