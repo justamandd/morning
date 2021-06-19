@@ -1,40 +1,55 @@
 <?php
-    namespace App\Controllers;
 
-    use App\Models\User;
+//require_once './Models/User.php';
+
+namespace App\Controllers;
+
+use App\Models\User;
 
     class UserController
     {
+
+        public function saveUser()
+        {
+            //user = $u
+            $u = new User();
+
+            if(isset($_SESSION['id'])){ $u->setId($_POST['id']); }
+            $u->setName($_POST['name']);
+            $u->setEmail($_POST['email']);
+            $u->setPassword($_POST['password']);
+            $u->setType((int)$_POST['type']);
+
+            return $u->save();
+
+            /*echo '<div class="alert h6 mt-2" role="alert" style="color: #856404;background-color: #fff3cd;border-color: #ffeeba;">
+                User already exists.
+            </div>';*/
+        }
+
+        public function listAll()
+        {
+            $u = new User();
+            return $u->listUsers();
+        }
+
+        public function delete(int $id)
+        {
+            $u = new User();
+            $u = $u->remove($id);
+        }
+
         public function login()
         {
-            $data = json_decode(file_get_contents('php://input'), true);
-            $select = User::authenticate($data['email'], $data['password']);
-
-            if($data['email'] == $select->getEmail() && $data['password'] == $select->getPassword())
-            {
-                return ['id'=>$select->getId(),'name'=>$select->getName(),'email'=>$select->getEmail(),'type'=>$select->getType()];
-            }
-            else
-            {
-                throw new \Exception("Email or password invalid");
-            }
+            $u = new User();
+            $u->setEmail($_POST['email']);
+            $u->setPassword($_POST['password']);
+            return $u->auth();
         }
 
-        public function create()
+        public function profile(int $id)
         {
-            $data = json_decode(file_get_contents('php://input'), true);
-
-            $sql = User::save($data);
-
-
-        }
-
-        public function update()
-        {
-            $data = json_decode(file_get_contents('php://input'), true);
-
-            $sql = User::save($data);
-
-
+            $u = new User();
+            return $u->select($id);
         }
     }

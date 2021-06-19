@@ -1,5 +1,6 @@
 <?php
     require_once '../vendor/autoload.php';
+    require_once './view/shared/header.php';
 
     # pagina/id/metodo/component/id
     # api/classe/metodo/parametro
@@ -12,7 +13,9 @@
     {
         $url = explode('/',$_GET['url']);
 
-        $url = strtolower($url);
+        var_dump($url);
+
+        //$url = strtolower($url);
 
         if($url[0] === 'api')
         {
@@ -67,7 +70,6 @@
         }
         else if($url[0] === 'admin')
         {
-
         }
         else
         {
@@ -79,7 +81,7 @@
             }
             else if($page == "home")
             {
-
+                require_once 'view/landing_page/landing_page.php';
             }
             else if($page == "profile")
             {
@@ -109,3 +111,5 @@
     // $component = $url[2];
     // $id_component = $url[3];
     // $method = $url[4];
+
+    require_once './view/shared/footer.php';
