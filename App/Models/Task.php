@@ -2,7 +2,7 @@
 
     namespace App\Models;
 
-    class Checklist
+    class Task
     {
         private static $table = 'task';
 
@@ -12,19 +12,19 @@
         private $fk_checkListId;
         private $t_order;
 
-        public static function save($data)
+        public function save()
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
-            if($data["id"] != "")
+            if(getId() > 0)
             {
                 try {
-                    $query = "UPDATE ".self::$table." SET name = :name, finished = :fin WHERE id = :id";
+                    $query = "UPDATE task SET name = :name, finished = :fin WHERE id = :id";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':id', $data['id']);
-                    $stmt->bindValue(':name', $data['name']);
-                    $stmt->bindValue(':fin', $data['finished']);
+                    $stmt->bindValue(':id', getId());
+                    $stmt->bindValue(':name', getName());
+                    $stmt->bindValue(':fin', getFinished());
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
@@ -39,11 +39,11 @@
             else
             {
                 try {
-                    $query = "INSERT INTO ".self::$table." (id, name, finished, fk_checkListId) VALUES (NULL, :name, 0,:fk)";
+                    $query = "INSERT INTO task (id, name, finished, fk_checkListId) VALUES (NULL, :name, 0,:fk)";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':name', $data['name']);
-                    $stmt->bindValue(':fk', $data['id_checklist']);
+                    $stmt->bindValue(':name', getName());
+                    $stmt->bindValue(':fk', getId_checklist());
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
@@ -57,12 +57,12 @@
             }
         }
 
-        public static function delete(int $id)
+        public function delete(int $id)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try {
-                $query = "DELETE FROM ". self::$table ." WHERE id = :id";
+                $query = "DELETE FROM task WHERE id = :id";
                 $stmt->bindValue(':id', $id);
                 $stmt->execute();
 
@@ -76,12 +76,12 @@
             }
         }
 
-        public static function select(int $id)
+        public function select(int $id)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try {
-                $query = "SELECT * FROM ". self::$table ." WHERE id = :id";
+                $query = "SELECT * FROM task WHERE id = :id";
                 $stmt->bindValue(':id', $id);
                 $stmt->execute();
 
@@ -95,12 +95,12 @@
             }
         }
 
-        public static function listTaskBy(int $id_checklist)
+        public function listTaskBy(int $id_checklist)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try {
-                $query = "SELECT * FROM".self::$table." WHERE fk_cardId = :fk";
+                $query = "SELECT * FROM task WHERE fk_cardId = :fk";
                 $stmt = $conn->prepare($query);
 
                 $stmt->bindValue(':fk', $id_checklist);
@@ -116,8 +116,49 @@
             }
         }
 
-        public static function changeOrderV(int $old, int $new)
+        public function changeOrderV(int $old, int $new)
         {
 
+        }
+
+        public function getId()
+        {
+            return $this->id;
+        }
+        public function setId($id)
+        {
+            $this->id = $id;
+        }
+        public function getName()
+        {
+            return $this->name;
+        }
+        public function setName($name)
+        {
+            $this->name = $name;
+        }
+        public function getFinished()
+        {
+            return $this->finished;
+        }
+        public function setFinished($finished)
+        {
+            $this->finished = $finished;
+        }
+        public function getFk_checkListId()
+        {
+            return $this->fk_checkListId;
+        }
+        public function setFk_checkListId($fk_checkListId)
+        {
+            $this->fk_checkListId = $fk_checkListId;
+        }
+        public function getT_order()
+        {
+            return $this->t_order;
+        } 
+        public function setT_order($t_order)
+        {
+            $this->t_order = $t_order;
         }
     }

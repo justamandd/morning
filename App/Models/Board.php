@@ -11,74 +11,84 @@
         private $description;
         private $fk_teamId;
 
-        public static function save($data)
+        public function save()
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
-            if ($data["id"] != "") {
+            if(getId() > 0){
                 try {
-                    $query = "UPDATE ".self::$table." SET name = :name, description = :desc WHERE id = :id";
+                    $query = "UPDATE board SET name = :name, description = :desc WHERE id = :id";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':id', $data['id']);
-                    $stmt->bindValue(':name', $data['name']);
-                    $stmt->bindValue(':description', $data['description']);
+                    $stmt->bindValue(':id', getId());
+                    $stmt->bindValue(':name', getName());
+                    $stmt->bindValue(':description', getDescription());
                     $stmt->execute();
 
-                    if($stmt->rowCount() > 0){
+                    if($stmt->rowCount() > 0)
+                    {
                         return true;
                     }else{
-                        return false; 
+                        return false;
                     }
-                } catch (PDOException $err ) {
-                    echo 'ERRO: '.$e->getMessage();
+                } catch (PDOException $err) {
+                    echo 'ERRO: '.$err->getMessage();
                 }
-            } else {
+                if($result > 0){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
                 try {
-                    $query = "INSERT INTO ".self::$table." VALUES (NULL, :name, :desc, :fk)";
+                    $query = "INSERT INTO board VALUES (NULL, :name, :desc, :fk)";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':name', $data['name']);
-                    $stmt->bindValue(':description', $data['description']);
-                    $stmt->bindValue(':fk', $data['id_team']);
+                    $stmt->bindValue(':name', getName());
+                    $stmt->bindValue(':description', getDescription());
+                    $stmt->bindValue(':fk', getId_team());
                     $stmt->execute();
 
-                    if($stmt->rowCount() > 0){
+                    if($stmt->rowCount() > 0)
+                    {
                         return true;
                     }else{
-                        return false; 
+                        return false;
                     }
-                } catch  (PDOException $err ) {
+                } catch (PDOException $err) {
                     echo 'ERRO: '.$e->getMessage();
                 }
             }
         }
 
-        public static function delete(int $id)
+        public function delete(int $id)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
-            try {
-                $query = "DELETE FROM ". self::$table ." WHERE id = :id";
+            try 
+            {
+                $query = "DELETE FROM board WHERE id = :id";
                 $stmt->bindValue(':id', $id);
                 $stmt->execute();
 
-                if($stmt->rowCount() > 0){
+                if($stmt->rowCount() > 0)
+                {
                     return true;
                 }else{
-                    return false; 
+                    return false;
                 }
-            } catch (PDOException $err) {
-                return "Erro: " . $err->getMessage();
+            } catch (PDOException $err) 
+            {
+                echo 'ERRO: '.$err->getMessage();
             }
         }
 
-        public static function select(int $id)
+        public function select(int $id)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try {
-                $query = "SELECT * FROM ". self::$table ." WHERE id = :id";
+                $query = "SELECT * FROM board WHERE id = :id";
                 $stmt->bindValue(':id', $id);
                 $stmt->execute();
 
@@ -92,19 +102,19 @@
             }
         }
 
-        public static function listBoards(int $id_team)
+        public function listBoards(int $id_team)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try {
-                $query = "SELECT * FROM".self::$table." WHERE fk_teamId = :fk";
+                $query = "SELECT * FROM board WHERE fk_teamId = :fk";
                 $stmt = $conn->prepare($query);
 
                 $stmt->bindValue(':fk', $id_team);
                 $stmt->execute();
 
                 if($stmt->rowCount() > 0){
-                    return $stmt->fetchObject(Board::class);
+                    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
                 }else{
                     return false; 
                 }
@@ -117,17 +127,34 @@
         {
             return $this->id;
         } 
+        public function setId($id)
+        {
+            $this->id = $id;
+        }
+
         public function getName()
         {
             return $this->name;
+        }
+
+        public function setName($name)
+        {
+            $this->name = $name;
         }
         public function getDescription()
         {
             return $this->description;
         }
-        public function getTeamId()
+        public function setDescription($description)
+        {
+            $this->description = $description;
+        }
+        public function getFk_teamId()
         {
             return $this->fk_teamId;
         }
-
-    }
+        public function setFk_teamId($fk_teamId)
+        {
+            $this->fk_teamId = $fk_teamId;
+        }
+}

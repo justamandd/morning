@@ -4,8 +4,6 @@
 
     class Card
     {
-        private static $table = 'list';
-
         private $id;
         private $name;
         private $description;
@@ -13,21 +11,21 @@
         private $fk_listId;
         private $c_order;
 
-        public static function save($data)
+        public function save($data)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
-            if($data["id"] != "")
+            if(getId() > 0)
             {
                 try {
-                    $query = "UPDATE ".self::$table." SET name = :name, description = :description, dtDelivery = :dtDelivery, fk_listId = :fk_listId where id = :id";
+                    $query = "UPDATE card SET name = :name, description = :description, dtDelivery = :dtDelivery, fk_listId = :fk_listId where id = :id";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':id', $data['id']);
-                    $stmt->bindValue(':name', $data['name']);
-                    $stmt->bindValue(':description', $data['description']);
-                    $stmt->bindValue(':dtDelivery', $data['dtDelivery']);
-                    $stmt->bindValue(':fk_listId', $data['fk_listId']);
+                    $stmt->bindValue(':id', getId());
+                    $stmt->bindValue(':name', getName());
+                    $stmt->bindValue(':description', getDescription());
+                    $stmt->bindValue(':dtDelivery', getDtDelivery());
+                    $stmt->bindValue(':fk_listId', getFk_listId());
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
@@ -42,12 +40,12 @@
             else
             {
                 try {
-                    $query = "INSERT INTO ".self::$table." (id, name, description, fk_listId) VALUES (NULL, :name, :description, :fk)";
+                    $query = "INSERT INTO card (id, name, description, fk_listId) VALUES (NULL, :name, :description, :fk)";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':name', $data['name']);
-                    $stmt->bindValue(':description', $data['description']);
-                    $stmt->bindValue(':fk', $data['fk']);
+                    $stmt->bindValue(':name', getName());
+                    $stmt->bindValue(':description', getDescription());
+                    $stmt->bindValue(':fk', getFk());
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
@@ -61,12 +59,12 @@
             }
         }
 
-        public static function delete(int $id)
+        public function delete(int $id)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try {
-                $query = "DELETE FROM ". self::$table ." WHERE id = :id";
+                $query = "DELETE FROM card WHERE id = :id";
                 $stmt->bindValue(':id', $id);
                 $stmt->execute();
 
@@ -80,12 +78,12 @@
             }
         }
 
-        public static function select(int $id)
+        public function select(int $id)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try {
-                $query = "SELECT * FROM ". self::$table ." WHERE id = :id";
+                $query = "SELECT * FROM card WHERE id = :id";
                 $stmt->bindValue(':id', $id);
                 $stmt->execute();
 
@@ -99,15 +97,15 @@
             }
         }
 
-        public static function listCardsBy(int $id_list)
+        public function listCardsBy(int $id_list)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try {
-                $query = "SELECT * FROM".self::$table." WHERE fk_listId = :fk";
+                $query = "SELECT * FROM card WHERE fk_listId = :fk";
                 $stmt = $conn->prepare($query);
 
-                $stmt->bindValue(':fk', $id_list);
+                $stmt->bindValue(':fk', getFk());
                 $stmt->execute();
 
                 if($stmt->rowCount() > 0){
@@ -120,38 +118,64 @@
             }
         }
 
-        public static function changeOrderV(int $old, int $new)
+        public function changeOrderV(int $old, int $new)
         {
 
         }
 
-        public static function changeOrderH(int $old, int $new, int $id_list)
+        public function changeOrderH(int $old, int $new, int $id_list)
         {
 
         }
 
         public function getId()
         {
-                return $this->id;
+            return $this->id;
+        }
+
+        public function setId($id)
+        {
+            $this->id = $id;
         }
         public function getName()
         {
-                return $this->name;
+            return $this->name;
+        }
+        public function setName($name)
+        {
+            $this->name = $name;
         }
         public function getDescription()
         {
-                return $this->description;
+            return $this->description;
+        }
+        public function setDescription($description)
+        {
+            $this->description = $description;
         }
         public function getDtDelivery()
         {
-                return $this->dtDelivery;
+            return $this->dtDelivery;
+        }
+        public function setDtDelivery($dtDelivery)
+        {
+            $this->dtDelivery = $dtDelivery;
         }
         public function getFk_listId()
         {
-                return $this->fk_listId;
+            return $this->fk_listId;
+        }
+        public function setFk_listId($fk_listId)
+        {
+            $this->fk_listId = $fk_listId;
         }
         public function getC_order()
         {
-                return $this->c_order;
+            return $this->c_order;
+        }
+        public function setC_order($c_order)
+        {
+            $this->c_order = $c_order;
         }
     }
+?>

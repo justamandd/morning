@@ -4,54 +4,52 @@
 
     class Team
     {
-        private static $table = "team";
-        
-        private $id_team;
+
+        private $id;
         private $name;
         private $description;
-        private $id_user;
+        private $idUser;
 
-
-        public static function save($team, $email = "")
+        public function save($team, $email = "")
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
-            if($team["id"] != "")
+            if(getId() > 0)
             {
                 try {
-                    $query = "UPDATE ".self::$table." SET name = :name, description = :desc WHERE id = :id_team";
+                    $query = "UPDATE team SET name = :name, description = :desc WHERE id = :id_team";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':id_team', $team['id_team']);
-                    $stmt->bindValue(':name', $team['name']);
-                    $stmt->bindValue(':desc', $team['description']);
-                    $stmt->bindValue(':id_user', $team['id_user']);
+                    $stmt->bindValue(':id_team', getTeam());
+                    $stmt->bindValue(':name', getName());
+                    $stmt->bindValue(':desc', getDesc());
+                    $stmt->bindValue(':id_user', getUser());
                     $stmt->execute();
 
-                    if($stmt->rowCount() > 0){
+                    if($stmt->rowCount() > 0)
+                    {
                         return true;
                     }else{
-                        return false; 
+                        return false;
                     }
                 } catch (PDOException $e) {
-                    echo 'Erro: '.$e->getMessage();
+                    echo 'ERRO: '.$e->getMessage();
                 }
-            }
-            else
-            {
+
+            }else{
                 try {
-                    $query = "INSERT INTO ".self::$table." VALUES (NULL, :name, :desc, :id_user)";
+                    $query = "INSERT INTO team VALUES (NULL, :name, :desc, :id_user)";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':name', $team['name']);
-                    $stmt->bindValue(':desc', $team['description']);
-                    $stmt->bindValue(':id_user', $team['id_user']);
+                    $stmt->bindValue(':name', getName());
+                    $stmt->bindValue(':desc', getDesc());
+                    $stmt->bindValue(':id_user', getUser());
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
                         if($email != null){
                             try {
-                                $query = "SELECT id FROM ".self::$table." WHERE fk_userId = :id_user ORDER BY id DESC LIMIT 1";
+                                $query = "SELECT id FROM team WHERE fk_userId = :id_user ORDER BY id DESC LIMIT 1";
                                 $stmt = $conn->prepare($query);
 
                                 $stmt->bindValue(':id_user', $team['id_user']);
@@ -83,7 +81,7 @@
 
             try 
             {
-                $query = "DELETE FROM".self::$table."WHERE id = :id_team";
+                $query = "DELETE FROM team WHERE id = :id_team";
                 $stmt = $conn->prepare($query);
 
                 $stmt->bindValue(':id_team', $id);
@@ -94,17 +92,17 @@
                 }else{
                     return false; 
                 }
-            } catch (PDOException $e) {
-                echo 'ERRO: '.$e->getMessage();
-            }
+                } catch (PDOException $e) {
+                    echo 'ERRO: '.$e->getMessage();
+                }
         }
 
-        public static function select(int $id)
+        public function select(int $id)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try {
-                $query = "SELECT * FROM ". self::$table ." WHERE id = :id_team";
+                $query = "SELECT * FROM team WHERE id = :id_team";
                 $stmt->bindValue(':id_team', $id);
                 $stmt->execute();
 
@@ -118,14 +116,13 @@
             }
         }
 
-        public static function selectBy(int $id_user)
+        public function selectBy(int $id_user)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try {
-                $query = "SELECT * FROM".self::$table." fk_userId = :id_user";
+                $query = "SELECT * FROM team fk_userId = :id_user";
                 $stmt = $conn->prepare($query);
-
                 $stmt->bindValue(':fk_userId', $id_user);
                 $stmt->execute();
 
@@ -143,15 +140,14 @@
             } catch (PDOException $e) {
                 echo 'Erro: '.$e->getMessage();
             }
-
         }
 
-        public static function addEmail(int $id_team, $email)
+        public function addEmail(int $id_team, $email)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
-            try {
-                $query = "INSERT INTO email VALUES (NULL, :email, :id_team)";
+            try{
+                $query = "INSERT INTO email VALUES(NULL, :email, :id_team)";
                 $stmt = $conn->prepare($query);
 
                 $stmt->bindValue(':email', $email);
@@ -161,28 +157,50 @@
                 if($stmt->rowCount() > 0){
                     return true;
                 }else{
-                    return false; 
+                    return false;
                 }
-            } catch (PDOException $err) {
+            } catch(PDOException $err){
                 echo 'Erro: '.$e->getMessage();
-            }
+            } 
         }
-
+        
         public function getId()
         {
-            return $this->id_team;
+            return $this->id;
         }
+
+        public function setId($id)
+        {
+            $this->id = $id;
+        }
+
         public function getName()
         {
             return $this->name;
         }
+
+        public function setName($name)
+        {
+            $this->name = $name;
+        } 
+
         public function getDescription()
         {
             return $this->description;
         }
-        public function getIdUser()
+
+        public function setDescription($description)
         {
-            return $this->id_user;
+            $this->description = $description;
         }
 
-}
+        public function getIdUser()
+        {
+            return $this->idUser;
+        }
+        
+        public function setIdUser($idUser)
+        {
+            $this->idUser = $idUser;
+        }
+    }

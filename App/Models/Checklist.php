@@ -4,25 +4,23 @@
 
     class Checklist
     {
-        private static $table = 'checklist';
-
         private $id;
         private $name;
         private $fk_cardId;
         private $ch_order;
 
-        public static function save($data)
+        public function save($data)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
-            if($data["id"] != "")
+            if(getId() > 0)
             {
                 try {
-                    $query = "UPDATE ".self::$table." SET name = :name WHERE id = :id";
+                    $query = "UPDATE checklist SET name = :name WHERE id = :id";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':id', $data['id']);
-                    $stmt->bindValue(':name', $data['name']);
+                    $stmt->bindValue(':id', getId());
+                    $stmt->bindValue(':name', getName());
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
@@ -37,11 +35,11 @@
             else
             {
                 try {
-                    $query = "INSERT INTO ".self::$table." (id, name, fk_cardId) VALUES (NULL, :name, :fk)";
+                    $query = "INSERT INTO checklist (id, name, fk_cardId) VALUES (NULL, :name, :fk)";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':name', $data['name']);
-                    $stmt->bindValue(':fk', $data['id_card']);
+                    $stmt->bindValue(':name', getName());
+                    $stmt->bindValue(':fk', getFk());
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
@@ -55,12 +53,12 @@
             }
         }
 
-        public static function delete(int $id)
+        public function delete(int $id)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try {
-                $query = "DELETE FROM ". self::$table ." WHERE id = :id";
+                $query = "DELETE FROM checklist WHERE id = :id";
                 $stmt->bindValue(':id', $id);
                 $stmt->execute();
 
@@ -74,12 +72,12 @@
             }
         }
 
-        public static function select(int $id)
+        public function select(int $id)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try {
-                $query = "SELECT * FROM ". self::$table ." WHERE id = :id";
+                $query = "SELECT * FROM checklist WHERE id = :id";
                 $stmt->bindValue(':id', $id);
                 $stmt->execute();
 
@@ -93,13 +91,13 @@
             }
         }
 
-        public static function listChecklistBy(int $id_card)
+        public function listChecklistBy(int $id_card)
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try 
             {
-                $query = "SELECT * FROM".self::$table." WHERE fk_cardId = :fk";
+                $query = "SELECT * FROM checklist WHERE fk_cardId = :fk";
                 $stmt = $conn->prepare($query);
 
                 $stmt->bindValue(':fk', $id_card);
@@ -117,21 +115,36 @@
             }
         }
 
-
         public function getId()
         {
             return $this->id;
+        }
+        public function setId($id)
+        {
+            $this->id = $id;
         }
         public function getName()
         {
             return $this->name;
         }
+        public function setName($name)
+        {
+            $this->name = $name;
+        }
         public function getFk_cardId()
         {
             return $this->fk_cardId;
         }
+        public function setFk_cardId($fk_cardId)
+        {
+            $this->fk_cardId = $fk_cardId;
+        }
         public function getCh_order()
         {
             return $this->ch_order;
+        }
+        public function setCh_order($ch_order)
+        {
+            $this->ch_order = $ch_order;
         }
     }
