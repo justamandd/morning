@@ -10,6 +10,7 @@
     position: absolute;
     left: 40px;
     top: 25px;
+    color: black;
 }
 
 h4{
@@ -52,7 +53,7 @@ h4{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #5B85AA;
+    background: #f5f3f5;
     color: #ffff;
 }
 
@@ -64,7 +65,7 @@ h4{
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(255, 255, 255,0.1);
+    background: #5b85aaa1;
     border-radius: 6px;
 }
 
