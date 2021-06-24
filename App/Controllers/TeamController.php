@@ -1,55 +1,57 @@
 <?php
 
-    namespace App\Controllers;
+namespace App\Controllers;
 
-    use App\Models\Team;
-    
-    class TeamController{
-        
-        public function saveTeam(){
-            try{
-                $team = new Team();
+use App\Models\Team;
 
-                $team->setId($_POST['id']);
-                $team->setName($_POST['name']);
-                $team->setDescription($_POST['description']);
-                $team->setIdUser($_SESSION['id']);
+class TeamController
+{
 
-                return $team->save();
+    public static function saveTeam($team)
+    {
+        try {
+            $t = new Team();
 
-            } catch(PDOException $e){
-                echo $e;
-            }
+            $t->setId($team->getId());
+            $t->setName($team->getName());
+            $t->setDescription($team->getDescription());
+            $t->setIdUser($team->getIdUser());
+
+            return $t->save();
+        } catch (PDOException $e) {
+            echo $e;
         }
-
-        public static function listTeamsUser(){
-            try {
-                $team = new Team();
-                $team->setIdUser((int)$_SESSION['id']);
-    
-                return $team->selectBy(); 
-            } catch (PDOException $e) {
-                echo $e;
-            }
-        }
-    
-        public function removeTeam($id){
-            try {
-                $team = new Team();
-                return $team->remove($id);
-            } catch (PDOException $e) {
-                echo $e;
-            }
-        }
-    
-        public function findTeam(){
-            try {
-                $team = new Team();
-                return $team->find($_POST['id']);
-            } catch (PDOException $e) {
-                echo $e;
-            }
-        }
-    
     }
-?>
+
+    public static function listTeamsUser()
+    {
+        try {
+            $team = new Team();
+            $team->setIdUser((int)$_SESSION['id']);
+
+            return $team->selectBy();
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
+    public static function removeTeam($id)
+    {
+        try {
+            $team = new Team();
+            return $team->remove($id);
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
+    public static function findTeam($id)
+    {
+        try {
+            $team = new Team();
+            return $team->select($id);
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+}

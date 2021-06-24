@@ -4,6 +4,8 @@
     require_once '../vendor/autoload.php';
     require_once './include/header.php';
 
+    
+
     //require_once './view/login/login_page.php';
     //require_once './view/register/user/user.php';
 
@@ -81,16 +83,15 @@
         {
             $page = $url[0];
 
+            array_shift($url);
+
+            if($page != 'login' && $page != 'register' && $page != ''){
+                require_once './view/shared/navbar.php';
+            }
+            
             if($page == "home")
             {
-                if(isset($_SESSION['logged']) && $_SESSION['logged'] == true){
-                    require_once 'view/home/home.php';
-                }else{
-                    echo "<script>
-                        alert(`You aren't logged`);
-                        window.location.href = `../public`;
-                    </script>";
-                }
+                require_once 'view/home/home.php';
             }
             else if($page == "profile")
             {
@@ -99,11 +100,11 @@
             }
             else if($page == "t")
             {
-
             }
             else if($page == "b")
             {
-
+                $id_team = $url[0];
+                require_once 'view/board/board.php';
             }
             else if($page == "login")
             {
@@ -112,6 +113,10 @@
             else if($page == "register")
             {
                 require_once 'view/register/user/user.php';
+            }
+            else if($page == "disconnect")
+            {
+                require_once 'include/kill_session.php';
             }
 
         }

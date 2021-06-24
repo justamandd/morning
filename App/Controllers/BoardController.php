@@ -10,10 +10,10 @@
         try {
             $board = new Board();
 
-            if(isset($_REQUEST['id'])){ $board->setId($_REQUEST['id']); }
-            $board->setName($_REQUEST['name']);
-            $board->setDescription($_REQUEST['description']);
-            $board->setFk_teamId((int)$_REQUEST['id_team']);
+            if(isset($_REQUEST['id_board'])){ $board->setId($_REQUEST['id_board']); }
+            $board->setName($_REQUEST['name_board']);
+            $board->setDescription($_REQUEST['description_board']);
+            $board->setFk_teamId((int)$_REQUEST['id_team_board']);
 
             if($board->save()){
                 return true;

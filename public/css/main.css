@@ -132,3 +132,7 @@ h2{
   background-color: greenyellow;
   border-radius: 5px;
 }
+
+.create_board{
+  cursor: pointer;
+}
