@@ -1,6 +1,11 @@
 <?php
+    session_start();
+
     require_once '../vendor/autoload.php';
-    require_once './view/shared/header.php';
+    require_once './include/header.php';
+
+    //require_once './view/login/login_page.php';
+    //require_once './view/register/user/user.php';
 
     # pagina/id/metodo/component/id
     # api/classe/metodo/parametro
@@ -9,14 +14,15 @@
     # importar controllers
     # use App\Controllers\NameController;
 
+    //var_dump($_GET['url']);
+
     if(isset($_GET['url']))
     {
         $url = explode('/',$_GET['url']);
 
-        var_dump($url);
-
         //$url = strtolower($url);
 
+        
         if($url[0] === 'api')
         {
             array_shift($url); //remove o primeiro item do array [0]
@@ -74,18 +80,22 @@
         else
         {
             $page = $url[0];
-            
-            if($page == "")
-            {
 
-            }
-            else if($page == "home")
+            if($page == "home")
             {
-                require_once 'view/landing_page/landing_page.php';
+                if(isset($_SESSION['logged']) && $_SESSION['logged'] == true){
+                    require_once 'view/home/home.php';
+                }else{
+                    echo "<script>
+                        alert(`You aren't logged`);
+                        window.location.href = `../public`;
+                    </script>";
+                }
             }
             else if($page == "profile")
             {
-
+                if(isset($_SESSION['logged']) && $_SESSION['logged'] == true){
+                }
             }
             else if($page == "t")
             {
@@ -97,14 +107,16 @@
             }
             else if($page == "login")
             {
-
+                require_once 'view/login/login_page.php';
             }
             else if($page == "register")
             {
-
+                require_once 'view/register/user/user.php';
             }
 
         }
+    }else{
+        require_once('./view/landing_page/landing_page.php');
     }
 
     // $id_page = $url[1];
@@ -112,4 +124,4 @@
     // $id_component = $url[3];
     // $method = $url[4];
 
-    require_once './view/shared/footer.php';
+    require_once 'include/footer.php';

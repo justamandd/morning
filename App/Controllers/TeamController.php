@@ -22,12 +22,12 @@
             }
         }
 
-        public function listTeamsUser(){
+        public static function listTeamsUser(){
             try {
                 $team = new Team();
-                $team->setIdUser($_SESSION['id']);
+                $team->setIdUser((int)$_SESSION['id']);
     
-                return $team->listTeams(); 
+                return $team->selectBy(); 
             } catch (PDOException $e) {
                 echo $e;
             }

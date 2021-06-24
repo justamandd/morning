@@ -19,8 +19,8 @@
                     $query = "UPDATE checklist SET name = :name WHERE id = :id";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':id', getId());
-                    $stmt->bindValue(':name', getName());
+                    $stmt->bindValue(':id', $this->id);
+                    $stmt->bindValue(':name', $this->name);
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
@@ -38,8 +38,8 @@
                     $query = "INSERT INTO checklist (id, name, fk_cardId) VALUES (NULL, :name, :fk)";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':name', getName());
-                    $stmt->bindValue(':fk', getFk());
+                    $stmt->bindValue(':name', $this->name);
+                    $stmt->bindValue(':fk', $this->fk);
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
@@ -59,7 +59,7 @@
 
             try {
                 $query = "DELETE FROM checklist WHERE id = :id";
-                $stmt->bindValue(':id', $id);
+                $stmt->bindValue(':id', $this->id);
                 $stmt->execute();
 
                 if($stmt->rowCount() > 0){
@@ -78,7 +78,7 @@
 
             try {
                 $query = "SELECT * FROM checklist WHERE id = :id";
-                $stmt->bindValue(':id', $id);
+                $stmt->bindValue(':id', $this->id);
                 $stmt->execute();
 
                 if($stmt->rowCount() > 0){
@@ -100,7 +100,7 @@
                 $query = "SELECT * FROM checklist WHERE fk_cardId = :fk";
                 $stmt = $conn->prepare($query);
 
-                $stmt->bindValue(':fk', $id_card);
+                $stmt->bindValue(':fk', $this->id_card);
                 $stmt->execute();
 
                 if($stmt->rowCount() > 0){

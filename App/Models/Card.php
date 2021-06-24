@@ -21,11 +21,11 @@
                     $query = "UPDATE card SET name = :name, description = :description, dtDelivery = :dtDelivery, fk_listId = :fk_listId where id = :id";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':id', getId());
-                    $stmt->bindValue(':name', getName());
-                    $stmt->bindValue(':description', getDescription());
-                    $stmt->bindValue(':dtDelivery', getDtDelivery());
-                    $stmt->bindValue(':fk_listId', getFk_listId());
+                    $stmt->bindValue(':id', $this->id);
+                    $stmt->bindValue(':name', $this->name);
+                    $stmt->bindValue(':description', $this->description);
+                    $stmt->bindValue(':dtDelivery', $this->dtDelivery);
+                    $stmt->bindValue(':fk_listId', $this->fk_listId);
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
@@ -43,9 +43,9 @@
                     $query = "INSERT INTO card (id, name, description, fk_listId) VALUES (NULL, :name, :description, :fk)";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':name', getName());
-                    $stmt->bindValue(':description', getDescription());
-                    $stmt->bindValue(':fk', getFk());
+                    $stmt->bindValue(':name', $this->name);
+                    $stmt->bindValue(':description', $this->description);
+                    $stmt->bindValue(':fk', $this->fk);
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
@@ -65,7 +65,7 @@
 
             try {
                 $query = "DELETE FROM card WHERE id = :id";
-                $stmt->bindValue(':id', $id);
+                $stmt->bindValue(':id', $this->id);
                 $stmt->execute();
 
                 if($stmt->rowCount() > 0){
@@ -84,7 +84,7 @@
 
             try {
                 $query = "SELECT * FROM card WHERE id = :id";
-                $stmt->bindValue(':id', $id);
+                $stmt->bindValue(':id', $this->id);
                 $stmt->execute();
 
                 if($stmt->rowCount() > 0){
@@ -105,7 +105,7 @@
                 $query = "SELECT * FROM card WHERE fk_listId = :fk";
                 $stmt = $conn->prepare($query);
 
-                $stmt->bindValue(':fk', getFk());
+                $stmt->bindValue(':fk', $this->fk);
                 $stmt->execute();
 
                 if($stmt->rowCount() > 0){

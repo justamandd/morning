@@ -22,9 +22,9 @@
                     $query = "UPDATE task SET name = :name, finished = :fin WHERE id = :id";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':id', getId());
-                    $stmt->bindValue(':name', getName());
-                    $stmt->bindValue(':fin', getFinished());
+                    $stmt->bindValue(':id', $this->id);
+                    $stmt->bindValue(':name', $this->name);
+                    $stmt->bindValue(':fin', $this->fin);
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
@@ -42,8 +42,8 @@
                     $query = "INSERT INTO task (id, name, finished, fk_checkListId) VALUES (NULL, :name, 0,:fk)";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':name', getName());
-                    $stmt->bindValue(':fk', getId_checklist());
+                    $stmt->bindValue(':name', $this->name);
+                    $stmt->bindValue(':fk', $this->id_checklist);
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
@@ -63,7 +63,7 @@
 
             try {
                 $query = "DELETE FROM task WHERE id = :id";
-                $stmt->bindValue(':id', $id);
+                $stmt->bindValue(':id', $this->id);
                 $stmt->execute();
 
                 if($stmt->rowCount() > 0){
@@ -82,7 +82,7 @@
 
             try {
                 $query = "SELECT * FROM task WHERE id = :id";
-                $stmt->bindValue(':id', $id);
+                $stmt->bindValue(':id', $this->id);
                 $stmt->execute();
 
                 if($stmt->rowCount() > 0){
@@ -103,7 +103,7 @@
                 $query = "SELECT * FROM task WHERE fk_cardId = :fk";
                 $stmt = $conn->prepare($query);
 
-                $stmt->bindValue(':fk', $id_checklist);
+                $stmt->bindValue(':fk', $this->id_checklist);
                 $stmt->execute();
 
                 if($stmt->rowCount() > 0){

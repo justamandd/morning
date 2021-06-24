@@ -23,7 +23,7 @@ h4:hover{
 #check{
     margin-top: 5px;
 }
-#botaologin{
+#confirmBtn{
     width: 210px;
    
 }
@@ -157,7 +157,7 @@ input[type="Email"]:focus{
 input[type="Password"]:focus{
     box-shadow: inset 0 0 1em #ffff, 0 0 1em #19ff04;
 }
-#botaologin:hover{
+#confirmBtn:hover{
     background-color: #19ff04;
     /**font-weight: bold;*/
     box-shadow: inset 0 0 1em #ffff, 0 0 1em #19ff04;

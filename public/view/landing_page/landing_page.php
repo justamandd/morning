@@ -1,32 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Morning</title>
-
-    <!-- Icon Morning-->
-    <link rel="icon" type="image/x-icon" href="assets/img/Morning.png" />
-
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
-
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
-        type="text/css" />
-
-    <!-- Core theme CSS (includes Bootstrap) -->
-    <link href="css/styles.css" rel="stylesheet" />
-</head>
-
-<body id="page-top">
+<link href="view/landing_page/lan_pg.css" rel="stylesheet">
+<div id="page-top">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg text-uppercase fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">Morning</a>
+            <a class="navbar-brand js-scroll-trigger" href="
+            <?php
+                if(isset($_SESSION['logged']) && $_SESSION['logged'] == true){
+                    echo 'home';
+                }else{
+                    echo '';
+                }
+            ?>">Morning</a>
             <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold text-white rounded"
                 type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -39,12 +24,10 @@
                             href="#home">Início</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                             href="#about">Sobre</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                            href="#contact">Contato</a></li>
                     <li class="mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" id="login"
-                            href="#login">Login</a></li>
+                            href="login">Login</a></li>
                     <li class="mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                            id="register" href="#register">Cadastre-se</a></li>
+                            id="register" href="register">Cadastre-se</a></li>
                 </ul>
             </div>
         </div>
@@ -87,9 +70,9 @@
 
             <!-- About Section Button-->
             <div class="text-center mt-4">
-                <a class="btn btn-xl text-black" id="btnCadastro" href="#">
+                <a class="btn btn-xl text-black" id="btnCadastro" href="register">
                     Cadastre-se já!
-                    <img src="./assets/img/icon.png" class="text-center icon">
+                    <img src="assets\img\lan_page\coffee_icon.png" class="text-center icon">
                 </a>
             </div>
         </div>
@@ -103,7 +86,7 @@
                 <!--Item 1-->
                 <div class="col-md-5 mb-3 mb-md-0">
                     <div class="mr-auto">
-                        <img class="img-fluid w-100" src="assets/img/about/todo.png" alt="..." />
+                        <img class="img-fluid w-100" src="assets\img\lan_page\todo.png" alt="..." />
                     </div>
                 </div>
                 <div class="col-md-7">
@@ -117,7 +100,7 @@
             </div>
             <div class="row py-5">
                 <div class="col-md-5 order-md-2 mb-3 mb-md-0">
-                    <img class="img-fluid w-100" src="assets/img/about/task.png">
+                    <img class="img-fluid w-100" src="assets\img\lan_page\task.png">
                 </div>
                 <div class="col-md-7">
                     <h6 class="textLateral texth6">As subdivisões</h6>
@@ -132,7 +115,7 @@
             </div>
             <div class="row py-5">
                 <div class="col-md-5 mb-3 mb-md-0">
-                    <img class="img-fluid w-100" src="assets/img/about/time.png">
+                    <img class="img-fluid w-100" src="assets\img\lan_page\time.png">
                 </div>
                 <div class="col-md-7">
                     <h6 class="textLateral texth6">Ganhe tempo</h6>
@@ -200,9 +183,9 @@
                 <div class="col-lg-4 mb-5 mb-lg-0">
                     <h4 class="text-uppercase mb-4">Contato</h4>
                     <p class="lead mb-0">
-                        email: enterprisemorning@gmail.com
+                        enterprisemorning@gmail.com
                         <br />
-                        phone: (19) 999123-0109
+                        (19) 999123-0109
                     </p>
                 </div>
 
@@ -253,11 +236,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Third party plugin JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <!-- Contact form JS-->
-    <script src="assets/mail/jqBootstrapValidation.js"></script>
-    <script src="assets/mail/contact_me.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
-</body>
 
-</html>
+    <script src="view\landing_page\scripts.js"></script>
+</div>

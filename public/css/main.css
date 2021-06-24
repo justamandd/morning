@@ -1,8 +1,134 @@
-*{
+.footer {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: #414770;
+  color: #fff;
 }
 
+.copyright {
+  background-color: #171123;
+}
 
-body{
-    background-color: black !important;
+.icon{
+  padding-bottom: 12px;
+}
 
+#about{
+  background: #5B85AA;
+}
+
+#sendMessageButton{
+  background: #171123;
+}
+
+#login{
+  color: #372248;
+}
+
+#register{
+  color: #372248;
+}
+
+.col-md-7{
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+h2{
+  margin-top: 15%;
+}
+
+.alert {
+  padding: 20px;
+  background-color: whitesmoke; /* Red */
+  color: black;
+  margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: grey;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
+
+#alert p {
+  padding: 10px 35px;
+  font-size: 18px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✓";
+}
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✕";
+}
+
+.anc{
+  text-decoration: none;
+  color: black;
+}
+
+.anc:hover{
+  text-decoration: none;
+  color: black;
+}
+
+.board-card{
+  width: 235px;
+}
+
+#title-text{
+  padding: 0;
+  margin: 0;
+}
+
+#desc-text{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  text-align: justify;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+#navLogo{
+  width: 25px;
+  height: 25px;
+  transition: .6s;
+  background-color: whitesmoke;
+}
+#navLogo:hover{
+  width: 25px;
+  height: 25px;
+  background-color: greenyellow;
+  border-radius: 5px;
 }

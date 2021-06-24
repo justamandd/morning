@@ -6,14 +6,14 @@
 
     class BoardController{
 
-    public function saveBoard(){
+    public static function saveBoard(){
         try {
             $board = new Board();
 
-            $board->setId($_POST['id']);
-            $board->setName($_POST['name']);
-            $board->setDescription($_POST['description']);
-            $board->setFk_teamId($_REQUEST['id_team']);
+            if(isset($_REQUEST['id'])){ $board->setId($_REQUEST['id']); }
+            $board->setName($_REQUEST['name']);
+            $board->setDescription($_REQUEST['description']);
+            $board->setFk_teamId((int)$_REQUEST['id_team']);
 
             if($board->save()){
                 return true;
@@ -22,12 +22,11 @@
             echo $e;
         }
     }
-    public function listBoardsTeam($id){
+    public static function listBoardsTeam($id){
         try {
             $board = new Board();
-            $board->setFk_teamId($id);
 
-            return $board->listBoardsByTeams(); 
+            return $board->listBoards($id); 
         } catch (PDOException $e) {
             echo $e;
         }

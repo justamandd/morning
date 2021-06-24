@@ -9,16 +9,16 @@ use App\Models\User;
     class UserController
     {
 
-        public function saveUser()
+        public static function saveUser()
         {
             //user = $u
             $u = new User();
 
-            if(isset($_SESSION['id'])){ $u->setId($_POST['id']); }
+            if(isset($_SESSION['user_id'])){$u->setId($_SESSION['user_id']);}
             $u->setName($_POST['name']);
             $u->setEmail($_POST['email']);
             $u->setPassword($_POST['password']);
-            $u->setType((int)$_POST['type']);
+            $u->setType($_POST['type']);
 
             return $u->save();
 
@@ -39,7 +39,7 @@ use App\Models\User;
             $u = $u->remove($id);
         }
 
-        public function login()
+        public static function login()
         {
             $u = new User();
             $u->setEmail($_POST['email']);
@@ -47,7 +47,7 @@ use App\Models\User;
             return $u->auth();
         }
 
-        public function profile(int $id)
+        public static function profile(int $id)
         {
             $u = new User();
             return $u->select($id);

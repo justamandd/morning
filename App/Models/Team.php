@@ -8,7 +8,7 @@
         private $id;
         private $name;
         private $description;
-        private $idUser;
+        private $id_user;
 
         public function save($team, $email = "")
         {
@@ -20,10 +20,10 @@
                     $query = "UPDATE team SET name = :name, description = :desc WHERE id = :id_team";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':id_team', getTeam());
-                    $stmt->bindValue(':name', getName());
-                    $stmt->bindValue(':desc', getDesc());
-                    $stmt->bindValue(':id_user', getUser());
+                    $stmt->bindValue(':id_team', $this->id_team);
+                    $stmt->bindValue(':name', $this->name);
+                    $stmt->bindValue(':desc', $this->desc);
+                    $stmt->bindValue(':id_user', $this->id_user);
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0)
@@ -41,9 +41,9 @@
                     $query = "INSERT INTO team VALUES (NULL, :name, :desc, :id_user)";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':name', getName());
-                    $stmt->bindValue(':desc', getDesc());
-                    $stmt->bindValue(':id_user', getUser());
+                    $stmt->bindValue(':name', $this->name);
+                    $stmt->bindValue(':desc', $this->desc);
+                    $stmt->bindValue(':id_user', $this->id_user);
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
@@ -52,7 +52,7 @@
                                 $query = "SELECT id FROM team WHERE fk_userId = :id_user ORDER BY id DESC LIMIT 1";
                                 $stmt = $conn->prepare($query);
 
-                                $stmt->bindValue(':id_user', $team['id_user']);
+                                $stmt->bindValue(':id_user', $this->id_user);
                                 $stmt->execute();
 
                                 if($stmt->rowCount() > 0){
@@ -116,20 +116,21 @@
             }
         }
 
-        public function selectBy(int $id_user)
+        public function selectBy()
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try {
-                $query = "SELECT * FROM team fk_userId = :id_user";
+                $query = "SELECT * FROM team WHERE fk_userId = :id_user";
                 $stmt = $conn->prepare($query);
-                $stmt->bindValue(':fk_userId', $id_user);
+
+                $stmt->bindValue(':id_user', $this->id_user);
                 $stmt->execute();
 
                 $result = array();
 
                 if($stmt->rowCount() > 0){
-                    while($rs = $stmt->fetchObject(Board::class))
+                    while($rs = $stmt->fetchObject(Team::class))
                     {
                         $result[] = $rs;
                     }
@@ -150,8 +151,8 @@
                 $query = "INSERT INTO email VALUES(NULL, :email, :id_team)";
                 $stmt = $conn->prepare($query);
 
-                $stmt->bindValue(':email', $email);
-                $stmt->bindValue(':id_team', $id_team);
+                $stmt->bindValue(':email', $this->emaill);
+                $stmt->bindValue(':id_team', $this->id_team);
                 $stmt->execute();
 
                 if($stmt->rowCount() > 0){
@@ -196,11 +197,11 @@
 
         public function getIdUser()
         {
-            return $this->idUser;
+            return $this->id_user;
         }
         
-        public function setIdUser($idUser)
+        public function setIdUser($id_user)
         {
-            $this->idUser = $idUser;
+            $this->id_user = $id_user;
         }
     }

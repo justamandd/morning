@@ -176,7 +176,7 @@ a {
   background-color: transparent;
 }
 a:hover {
-  color: #117964;
+  color: black;
   text-decoration: underline;
 }
 
@@ -4019,10 +4019,9 @@ input[type=button].btn-block {
   padding: 0.25rem 0.75rem;
   font-size: 1.25rem;
   line-height: 1;
-  background-color: transparent;
   border: 0.125rem solid transparent;
   border-radius: 0.5rem;
-  background: #372248;
+  background: black;
 }
 .navbar-toggler:hover, .navbar-toggler:focus {
   text-decoration: none;
@@ -10067,6 +10066,7 @@ h3 {
   font-size: 1.25rem;
   justify-content: center;
   align-items: center;
+  background-color: #414770;
 }
 
 .scroll-to-top {
@@ -10099,13 +10099,13 @@ h3 {
   color: #fff;
 }
 #mainNav .navbar-nav li.nav-item a.nav-link:hover {
-  color: #372248;
+  color: black;
 }
 #mainNav .navbar-nav li.nav-item a.nav-link:active, #mainNav .navbar-nav li.nav-item a.nav-link:focus {
   color: #fff;
 }
 #mainNav .navbar-nav li.nav-item a.nav-link.active {
-  color: #372248;
+  color: black;
 }
 #mainNav .navbar-toggler {
   font-size: 80%;
@@ -10127,11 +10127,11 @@ h3 {
   }
   #mainNav .navbar-nav > li.nav-item > a.nav-link.active {
     color: #fff;
-    background: #372248;
+    background:  #414770;
   }
   #mainNav .navbar-nav > li.nav-item > a.nav-link.active:active, #mainNav .navbar-nav > li.nav-item > a.nav-link.active:focus, #mainNav .navbar-nav > li.nav-item > a.nav-link.active:hover {
     color: #fff;
-    background: #372248;
+    background:  #414770;
   }
 
   #mainNav.navbar-shrink {
@@ -10238,7 +10238,7 @@ form .row:first-child .floating-label-form-group {
 .footer {
   padding-top: 5rem;
   padding-bottom: 5rem;
-  background-color: #414770;
+  background-color: #5B85AA;
   color: #fff;
 }
 
@@ -10255,15 +10255,15 @@ form .row:first-child .floating-label-form-group {
 }
 
 #sendMessageButton{
-  background: #171123;
+  background: #414770;
 }
 
 #login{
-  color: #372248;
+  color: black;
 }
 
 #register{
-  color: #372248;
+  color: black;
 }
 
 .col-md-7{
