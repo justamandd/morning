@@ -16,16 +16,16 @@
         {
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
-            if(getId() > 0)
+            if($this->id > 0)
             {
                 try {
                     $query = "UPDATE user SET name = :name, email = :email, password = :password, type = :type where id = :id";
                     $stmt = $conn->prepare($query);
 
-                    $stmt->bindValue(':id', getId());
-                    $stmt->bindValue(':name', getName());
-                    $stmt->bindValue(':email', getEmail());
-                    $stmt->bindValue(':password', getPassword());
+                    $stmt->bindValue(':id', $this->id);
+                    $stmt->bindValue(':name', $this->name);
+                    $stmt->bindValue(':email', $this->email);
+                    $stmt->bindValue(':password', $this->password);
 
                     $stmt->execute();
 
@@ -41,13 +41,13 @@
             else
             {
                 try {
-                    $query = "INSERT INTO user VALUES (NULL, :name, :email, :user, md5(:password), :type)";
+                    $query = "INSERT INTO user VALUES (NULL, :name, :email, md5(:password), :type)";
                     $stmt = $conn->prepare($query);
         
-                    $stmt->bindValue(':name', getName());
-                    $stmt->bindValue(':email', getEmail());
-                    $stmt->bindValue(':password', getPassword());
-                    $stmt->bindValue(':type', getType());
+                    $stmt->bindValue(':name', $this->name);
+                    $stmt->bindValue(':email', $this->email);
+                    $stmt->bindValue(':password', $this->password);
+                    $stmt->bindValue(':type', $this->type);
                     $stmt->execute();
         
                     if($stmt->rowCount() > 0){
@@ -128,11 +128,11 @@
             $conn = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
             try {
-                $query = "SELECT * FROM user WHERE user = :username AND password = md5(:password)";
+                $query = "SELECT * FROM user WHERE email = :email AND password = md5(:password)";
                 $stmt = $conn->prepare($query);
 
-                $stmt->bindValue(':email', getEmail());
-                $stmt->bindValue(':password', getPassword());
+                $stmt->bindValue(':email', $this->email);
+                $stmt->bindValue(':password', $this->password);
                 $stmt->execute();
 
                 if($stmt->rowCount() > 0){
